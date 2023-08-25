@@ -64,7 +64,7 @@ particular, `#` may well be your erase character).  I use the following
 invocation: `stty 9600 erase '^h' kill '^u' cr0 nl0` (I also keep that
 in my `.profile`.)
 
-Now copy the contents of `uemacs.uue` into your paste buffer, and then,
+Now copy the contents of `uudecode.c` into your paste buffer, and then,
 assuming your terminal emulator has a "paste slowly" feature (iTerm2 for
 MacOS certainly does, and is what I use), use cat to paste that into a
 file named `uudecode.c` on the v7 side (after pasting, add a newline if
