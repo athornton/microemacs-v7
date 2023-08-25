@@ -99,7 +99,7 @@ backsearch(f, n)
 		return(s);
 
 	/* and go search for it */
-	buffer_search(f,n);
+	bsearch(f,n);
 }
 
 backhunt(f, n)	/* hunt backward for the last search string entered */
@@ -118,10 +118,10 @@ backhunt(f, n)	/* hunt backward for the last search string entered */
 	}
 
 	/* and go search for it */
-	buffer_search(f,n);
+	bsearch(f,n);
 }
 
-buffer_search(f, n)
+bsearch(f, n)
 
 {
 	register LINE *clp;
@@ -245,7 +245,7 @@ char *prompt;
 	expandp(&pat[0], &tpat[strlen(tpat)], NPAT/2);	/* add old pattern */
 	strcat(tpat, "]<ESC>: ");
 
-	s = mlreplyt(tpat, tpat, NPAT, 27);	/* Read pattern */
+	s = mltrep(tpat, tpat, NPAT, 27);	/* Read pattern */
 
 	if (s == TRUE)				/* Specified */
 		strcpy(pat, tpat);

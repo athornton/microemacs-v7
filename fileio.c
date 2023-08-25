@@ -50,16 +50,14 @@ ffclose()
 	fputc(26, ffp);		/* add a ^Z at the end of the file */
 #endif
 	
-#if     V7 || (MSDOS && LATTICE)
+#if     V7 | (MSDOS & LATTICE)
         if (fclose(ffp) != FALSE) {
                 mlwrite("Error closing file");
                 return(FIOERR);
         }
         return(FIOSUC);
 #else
-	if (ffp)
-		fclose(ffp);
-	ffp = NULL;
+        fclose(ffp);
         return (FIOSUC);
 #endif
 }

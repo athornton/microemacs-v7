@@ -30,8 +30,8 @@ extern  int     ttputc();
 extern  int     ttflush();
 extern  int     ttclose();
 extern  int     ansimove();
-extern  int     ansieeol();
-extern  int     ansieeop();
+extern  int     ansieol();
+extern  int     ansieop();
 extern  int     ansibeep();
 extern  int     ansiopen();
 extern	int	ansirev();
@@ -50,8 +50,8 @@ TERM    term    = {
         ttputc,
         ttflush,
         ansimove,
-        ansieeol,
-        ansieeop,
+        ansieol,
+        ansieop,
         ansibeep,
 	ansirev
 };
@@ -66,14 +66,14 @@ ansimove(row, col)
         ttputc('H');
 }
 
-ansieeol()
+ansieol()
 {
         ttputc(ESC);
         ttputc('[');
         ttputc('K');
 }
 
-ansieeop()
+ansieop()
 {
         ttputc(ESC);
         ttputc('[');

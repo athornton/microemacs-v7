@@ -1,6 +1,0 @@
-*.o
-.deps
-config.h
-config.h.in
-me
-stamp-h1

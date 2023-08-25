@@ -207,6 +207,7 @@ splitwind(f, n)
         register int    ntrd;
         register WINDOW *wp1;
         register WINDOW *wp2;
+	char *malloc();
 
         if (curwp->w_ntrows < 3) {
                 mlwrite("Cannot split a %d line window", curwp->w_ntrows);
@@ -380,7 +381,7 @@ wpopup()
         return (wp);
 }
 
-scrnextup(f, n)		/* scroll the next window up (back) a page */
+scrupnext(f, n)		/* scroll the next window up (back) a page */
 
 {
 	nextwind(FALSE, 1);
@@ -388,7 +389,7 @@ scrnextup(f, n)		/* scroll the next window up (back) a page */
 	prevwind(FALSE, 1);
 }
 
-scrnextdw(f, n)		/* scroll the next window down (forward) a page */
+scrdwnext(f, n)		/* scroll the next window down (forward) a page */
 
 {
 	nextwind(FALSE, 1);

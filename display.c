@@ -43,6 +43,7 @@ vtinit()
 {
     register int i;
     register VIDEO *vp;
+    char *malloc();
 
     (*term.t_open)();
     (*term.t_rev)(FALSE);
@@ -826,14 +827,14 @@ mlreply(prompt, buf, nbuf)
     char *prompt;
     char *buf;
 {
-	return(mlreplyt(prompt,buf,nbuf,'\n'));
+	return(mltrep(prompt,buf,nbuf,'\n'));
 }
 
 /*	A more generalized prompt/reply function allowing the caller
 	to specify the proper terminator. If the terminator is not
 	a return ('\n') it will echo as "<NL>"
 							*/
-mlreplyt(prompt, buf, nbuf, eolchar)
+mltrep(prompt, buf, nbuf, eolchar)
 
 char *prompt;
 char *buf;

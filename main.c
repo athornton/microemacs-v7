@@ -198,8 +198,8 @@ char    *argv[];
 
 	/* initialize the editor and process the startup file */
         strcpy(bname, "main");	/* default buffer name */
-        vtinit();		/* Displays.            */
         edinit(bname);		/* Buffers, windows.    */
+        vtinit();		/* Displays.            */
 	startup();		/* execute .emacsrc if there */
 	viewflag = FALSE;
 	ffile = TRUE;		/* no file to edit yet */
@@ -306,7 +306,7 @@ loop:
                 n = 4;                          /* with argument of 4 */
                 mflag = 0;                      /* that can be discarded. */
                 mlwrite("Arg: 4");
-                while (((c = getkey()) >= '0' && c <= '9') || c == (CTRL|'U') || c == '-') {
+                while ((c=getkey()) >='0' && c<='9' || c==(CTRL|'U') || c=='-'){
                         if (c == (CTRL|'U'))
                                 n = n*4;
                         /*
@@ -369,6 +369,7 @@ char    bname[];
 {
         register BUFFER *bp;
         register WINDOW *wp;
+	char *malloc();
 
         bp = bfind(bname, TRUE, 0);             /* First buffer         */
         blistp = bfind("[List]", TRUE, BFTEMP); /* Buffer list buffer   */

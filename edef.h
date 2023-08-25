@@ -6,11 +6,6 @@
 			greatly modified by Daniel Lawrence
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "config.h"
-
 #ifdef	maindef
 
 /* for MAIN.C */

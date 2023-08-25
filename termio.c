@@ -59,7 +59,7 @@ int nxtchar = -1;	/* character held from type ahead    */
 #include "rainbow.h"
 #endif
 
-#if V7 || BSD
+#if V7
 #undef	CTRL
 #include        <sgtty.h>        /* for stty/gtty functions */
 #include	<signal.h>
@@ -74,14 +74,6 @@ extern	int rtfrmshell();	/* return from suspended shell */
 #define	TBUFSIZ	128
 char tobuf[TBUFSIZ];		/* terminal output buffer */
 #endif
-#endif
-
-#if linux || macos
-#include	<termios.h>
-#include	<unistd.h>
-#include	<poll.h>
-struct	termios	 ostate;		 /* saved tty state */
-struct	termios	 nstate;		 /* values for editor mode */
 #endif
 
 /*
@@ -145,7 +137,7 @@ ttopen()
 	intdos(&rg, &rg);	/* go for it! */
 #endif
 
-#if     V7 || BSD
+#if     V7 | BSD
         gtty(0, &ostate);                       /* save old state */
         gtty(0, &nstate);                       /* get base of new state */
         nstate.sg_flags |= RAW;
@@ -160,28 +152,6 @@ ttopen()
 	signal(SIGTSTP,SIG_DFL);	/* set signals so that we can */
 	signal(SIGCONT,rtfrmshell);	/* suspend & restart emacs */
 #endif
-#endif
-
-#if	linux || macos
-	/* Save pos+attr, disable margins, set cursor far away, query pos */
-	const char query[] = "\e7" "\e[r" "\e[999;999H" "\e[6n";
-	struct pollfd fd = { 1, POLLIN, 0 };
-	int row, col;
-
-	/* Adjust output channel */
-	tcgetattr(1, &ostate);			/* save old state */
-	nstate = ostate;			/* get base of new state */
-	cfmakeraw(&nstate);
-	tcsetattr(1, TCSADRAIN, &nstate);	/* set mode */
-
-	/* Query size of terminal by first trying to position cursor */
-	if (write(1, query, sizeof(query)) != -1 && poll(&fd, 1, 300) > 0) {
-		/* Terminal responds with \e[row;posR */
-		if (scanf("\e[%d;%dR", &row, &col) == 2) {
-			term.t_nrow = row;
-			term.t_ncol = col;
-		}
-	}
 #endif
 }
 
@@ -222,10 +192,6 @@ ttclose()
 #if     V7
         stty(0, &ostate);
 	ioctl(0, TIOCSETC, &otchars);	/* Place old character into K */
-#endif
-
-#if	linux || macos
-	tcsetattr(1, TCSADRAIN, &ostate);	/* return to original mode */
 #endif
 }
 
@@ -271,7 +237,7 @@ ttputc(c)
         Put_Char(c);                    /* fast video */
 #endif
 
-#if     V7 || linux || macos
+#if     V7
         fputc(c, stdout);
 #endif
 }
@@ -312,7 +278,7 @@ ttflush()
 #endif
 #if     MSDOS
 #endif
-#if     V7 || linux || macos
+#if     V7
         fflush(stdout);
 #endif
 }
@@ -425,7 +391,7 @@ ttgetc()
 	return(c);
 #endif
 
-#if     V7 || linux || macos
+#if     V7
         return(127 & fgetc(stdin));
 #endif
 }

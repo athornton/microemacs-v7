@@ -34,6 +34,7 @@ register int    used;
 {
         register LINE   *lp;
         register int    size;
+	char *malloc();
 
         size = (used+NBLOCK-1) & ~(NBLOCK-1);
         if (size == 0)                          /* Assume that an empty */
@@ -450,6 +451,8 @@ kdelete()
 kinsert(c)
 {
         register char   *nbufp;
+	char *realloc();
+	char *malloc();
 
         if (kused == ksize) {
 		if (ksize == 0)	/* first time through? */
@@ -493,6 +496,7 @@ unsigned size;	/* # of bytes needed in new block */
 {
 	char *newptr;	/* pointer to new block */
 	unsigned csize;	/* size of area to copy from old buffer to new */
+	char *malloc();
 
 	newptr = malloc(size);		/* get the new block */
 	if (newptr == NULL)		/* if malloc fails....*/

@@ -122,8 +122,8 @@ extern	int	help();			/* get the help file here	*/
 extern	int	deskey();		/* describe a key's binding	*/
 extern	int	viewfile();		/* find a file in view mode	*/
 extern	int	insfile();		/* insert a file		*/
-extern	int	scrnextup();		/* scroll next window back	*/
-extern	int	scrnextdw();		/* scroll next window down	*/
+extern	int	scrupnext();		/* scroll next window back	*/
+extern	int	scrdwnext();		/* scroll next window down	*/
 extern	int	bindtokey();		/* bind a function to a key	*/
 extern	int	unbindkey();		/* unbind a key's function	*/
 extern	int	namedcmd();		/* execute named command	*/
@@ -229,8 +229,8 @@ NBIND	names[] = {
 	{"redraw-display",		reposition},
 	{"replace-string",		sreplace},
 	{"save-file",			filesave},
-	{"scroll-next-up",		scrnextup},
-	{"scroll-next-down",		scrnextdw},
+	{"scroll-next-up",		scrupnext},
+	{"scroll-next-down",		scrdwnext},
 	{"search-forward",		forwsearch},
 	{"search-reverse",		backsearch},
 	{"select-buffer",		usebuffer},
